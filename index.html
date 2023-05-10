@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Стили для контейнера и текстур тумана */
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: black;
+			background-image: url('stars.jpg');
+        }
+
+        #fogContainer {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .fogTexture {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            opacity: 1;
+            animation: fogAnimation linear infinite;
+        }
+
+        /* Анимация для движения и исчезания текстур тумана */
+        @keyframes fogAnimation {
+            0% {
+                opacity: 1;
+                transform: translateY(100%);
+            }
+            50% {
+                opacity: 0.5;
+                transform: translateY(50%);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="fogContainer"></div>
+
+    <script>
+        // Пути к текстурам тумана
+        var fogTextures = [
+            "22222.png", 
+            "44444.png",
+            "asdsad.png",
+            "5546456.png"
+        ];
+
+        // Создание и добавление текстур тумана в контейнер
+        var fogContainer = document.getElementById("fogContainer");
+        var totalTextures = fogTextures.length;
+        var desiredTextures = totalTextures * 3;
+        for (var i = 0; i < desiredTextures; i++) {
+            var textureIndex = i % totalTextures;
+            var fogTexture = document.createElement("img");
+            fogTexture.src = fogTextures[textureIndex];
+            fogTexture.classList.add("fogTexture");
+
+            // Генерация случайной скорости анимации для каждой текстуры
+            var animationDuration = Math.random() * 60 + 10; // Генерация случайного значения от 10 до 70
+            fogTexture.style.animationDuration = animationDuration + "s";
+
+            fogTexture.style.animationDelay = (i * -1) + "s";
+            fogTexture.style.left = getRandomPosition(0, fogContainer.offsetWidth - fogTexture.offsetWidth) + "px";
+            fogTexture.style.height = "300%"; // Установка высоты текстур в 300%
+            fogContainer.appendChild(fogTexture);
+
+            // Обработчик события animationiteration
+            fogTexture.addEventListener("animationiteration", function() {
+                // Изменяем свойство left для текстуры
+                this.style.left = getRandomPosition(0, fogContainer.offsetWidth - this.offsetWidth) + "px";
+            });
+        }
+
+        // Функция для получения случайной позиции
+        function getRandomPosition(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        }
+    </script>
+</body>
+</html>
