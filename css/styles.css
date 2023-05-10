@@ -1,0 +1,41 @@
+ 
+        /* Стили для контейнера и текстур тумана */
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: black;
+			background-image: url('https://raw.githubusercontent.com/Ve-nator/Smoky/main/png/stars.jpg');
+        }
+
+        #fogContainer {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .fogTexture {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            opacity: 1;
+            animation: fogAnimation linear infinite;
+        }
+
+        /* Анимация для движения и исчезания текстур тумана */
+        @keyframes fogAnimation {
+            0% {
+                opacity: 1;
+                transform: translateY(100%);
+            }
+            50% {
+                opacity: 0.5;
+                transform: translateY(50%);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(0);
+            }
+        }
+    
